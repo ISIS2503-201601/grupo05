@@ -26,8 +26,11 @@ public class SattServices {
     
     @POST
     @Path("verificarTsunami/")
-    public DatosSismo verificarTsunami( DatosSismo dS ){        
-        sattEjb.verificarTsunami(dS);
+    public List<DatosSismo> verificarTsunami( List<DatosSismo> dS ){    
+        for (DatosSismo d : dS) {
+            sattEjb.verificarTsunami(d);
+        }
+       
         return dS;
     }
     

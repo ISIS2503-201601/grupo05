@@ -16,6 +16,9 @@ public class DatosSismo {
     private double latitud;
     private String latD;
     private double distancia;
+    
+    public DatosSismo(){
+    }
 
     public DatosSismo(double longitud, String lonD, double latitud, String latD, double distancia) {
         this.longitud = longitud;

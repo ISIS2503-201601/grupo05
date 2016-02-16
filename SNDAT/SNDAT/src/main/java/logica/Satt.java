@@ -11,6 +11,8 @@ import persistencia.PersistenciaSatt;
 import interfaces.ISatt;
 import java.util.*;
 import java.util.concurrent.ThreadLocalRandom;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.ejb.Stateless;
 
 /**
@@ -101,7 +103,11 @@ public class Satt implements ISatt {
     @Override
     public String generarReporte( ArrayList<String> zonasAfectadas, ArrayList<Integer> tiemposDeLlegada, double longitud, char lonD, double latitud, char latD ) {
         String reporte = "Temblor en " + latitud + " grados " + latD + ", " + longitud + " grados " + lonD + ".";
-        
+        try {
+            persistencia.create(reporte);
+        } catch (Exception ex) {
+            Logger.getLogger(Satt.class.getName()).log(Level.SEVERE, null, ex);
+        }
         return reporte;
     }    
 }
