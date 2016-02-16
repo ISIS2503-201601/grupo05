@@ -10,7 +10,7 @@
         </session-timeout>
     </session-config>
     
-     <display-name>SampleWebService</display-name>
+    <display-name>SampleWebService</display-name>
     
     <servlet>
         <servlet-name>ServletAdaptor</servlet-name>

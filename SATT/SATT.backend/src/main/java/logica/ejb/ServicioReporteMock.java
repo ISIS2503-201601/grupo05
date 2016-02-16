@@ -60,6 +60,10 @@ public class ServicioReporteMock implements IServicioReporteMockLocal
     @Override
     public Reporte generarReporteDeEvento(EventoSismico evento, Señal señalRecibida) 
     {   
+        //el evento tiene también lat y long, por qué usas la señal-?
+        // Poruqe me interesa el sensor que envío la señal, no?
+        //pero "lo" que envía los parámetros de un evento sísmic o no es un sensor, son los manes
+        //de otra organización ahí
         //Se instancian los modelos premodelados
         Modelo modeloA1 = new Modelo(10000, 100000, 0, 5, "Atlantico", "Informativo" );
         Modelo modeloA2 = new Modelo(1000, 10000, 5, 10, "Atlantico", "Precaucion" );
@@ -89,13 +93,14 @@ public class ServicioReporteMock implements IServicioReporteMockLocal
         double tiempo = 0;
         String perfil = "";
         
+         
         //Calculo de zona costera mas cercana
         if(señalRecibida.getLatitud()<= 11.5 && señalRecibida.getLatitud()>= 11 
         && señalRecibida.getLongitud() <= -74.5 && señalRecibida.getLongitud() >= -74)
         {
            zona = "Atlantico";
            int zonaAfectada = (int) Math.random() * 5;
-           zonas.add(zonasAtlantico[zonaAfectada]);
+           zonas.add(zonasAtlantico[zonaAfectada]); 
         }
             
         else if(señalRecibida.getLatitud()<= 7 && señalRecibida.getLatitud()>= 5 

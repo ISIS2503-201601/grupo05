@@ -4,6 +4,7 @@ import dto.EventoSismico;
 import dto.Reporte;
 import dto.Señal;
 import java.util.ArrayList;
+import java.util.List;
 
 import javax.ejb.EJB;
 import javax.ejb.Stateless;
@@ -43,13 +44,18 @@ public class ReporteService {
      */
     @POST
     @Path("enviar/")
- 
-    public Reporte enviarEventoSismico(EventoSismico evento) 
-    {
-        reporteEjb.recibirEventoSismico(evento);
-        Señal señal = receptorEjb.buscarUltimoRegistroSensorCercano(evento); ;
-        //Falta por implementar la generación del reporte
-        return reporteEjb.generarReporteDeEvento(evento, señal);
+    
+    public Reporte enviarEventoSismico(List<EventoSismico> evento) 
+    {   
+        Reporte reporteGenerado = null;
+        for(EventoSismico es : evento)
+        {
+             reporteEjb.recibirEventoSismico(es);
+             Señal señal = receptorEjb.buscarUltimoRegistroSensorCercano(es); 
+             reporteGenerado = reporteEjb.generarReporteDeEvento(es, señal);
+        }
+        
+        return reporteGenerado;
     }
    
     /**

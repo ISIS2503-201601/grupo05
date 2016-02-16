@@ -4,6 +4,7 @@ import dto.EventoSismico;
 import dto.Reporte;
 import dto.Señal;
 import java.util.ArrayList;
+import java.util.List;
 
 import javax.ejb.EJB;
 import javax.ejb.Stateless;
@@ -37,8 +38,12 @@ public class ReceptorService {
     @POST
     @Path("enviar/")
  
-    public Señal recibirSeñal(Señal señalRecibida) {
-        receptorEjb.recibirSeñal(señalRecibida);
+    public List<Señal> recibirSeñal(List<Señal> señalRecibida) 
+    {
+        for(Señal s : señalRecibida)
+        {
+          receptorEjb.recibirSeñal(s);   
+        }
         
         return señalRecibida;
     }
