@@ -1,0 +1,7 @@
+logica\Satt.class
+servicios\SattServices.class
+interfaces\ISatt.class
+dto\Sensor.class
+persistencia\PersistenciaSatt.class
+dto\DatosSismo.class
+interfaces\IPersistenciaSatt.class
