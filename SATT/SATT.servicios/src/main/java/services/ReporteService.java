@@ -47,15 +47,17 @@ public class ReporteService {
     
     public Reporte enviarEventoSismico(List<EventoSismico> evento) 
     {   
-        Reporte reporteGenerado = null;
+        EventoSismico temp = new EventoSismico();
+        
         for(EventoSismico es : evento)
         {
-             reporteEjb.recibirEventoSismico(es);
-             Señal señal = receptorEjb.buscarUltimoRegistroSensorCercano(es); 
-             reporteGenerado = reporteEjb.generarReporteDeEvento(es, señal);
+            temp = es;
         }
         
-        return reporteGenerado;
+        reporteEjb.recibirEventoSismico(temp); 
+        Señal señal = receptorEjb.buscarUltimoRegistroSensorCercano(temp); 
+        return reporteEjb.generarReporteDeEvento(temp, señal);
+        
     }
    
     /**
