@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<!--
+To change this license header, choose License Headers in Project Properties.
+To change this template file, choose Tools | Templates
+and open the template in the editor.
+-->
+    <head>
+        <title>TODO supply a title</title>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    </head>
+    <body>
+         <form name="competitorForm" ng-submit="addReporte()" ng-controller="reporteCtrl" novalidate>
+    <h2 class="form-title">Registre un evento sísmico para generar un reporte</h2>
+    <div class="row">
+        <div class="col-md-6">
+            <label>ID:</label>
+            <input ng-model="reporte.id" type="number" class="form-control" required/>
+        </div>
+        <div class="col-md-6">
+            <label>Latitud:</label>
+            <input ng-model="reporte.latitud" type="number" class="form-control" required/>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-md-6">
+            <label>Longitud:</label>
+            <input ng-model="reporte.longitud" type="number" class="form-control" required/>
+        </div>
+        <div class="col-md-6">
+            <label>Distancia:</label>
+            <input ng-model="reporte.distancia" type="number" class="form-control" required/>
+        </div>
+    </div>
+    <input type="submit" value="Enviar" class="btn btn-default">
+    <h2 class="form-title">Reporte generado:</h2>
+    <p>
+     Se ha iniciado el estado de alerta de tipo: {{retornos.perfilAlerta}} 
+     se inicia la evacuación de los ciudadanos en la(s) zona(s) de {{retornos.zona}} 
+     se estima que el tsunami tendrá una altura de:  {{retornos.altura}} 
+     y el tiempo estimado de llegada es: {{retornos.tiempoLlegada}}  
+    </p>
+</form>
+ 
+    </body>

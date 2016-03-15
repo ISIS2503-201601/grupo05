@@ -41,8 +41,29 @@ public class ServicioReceptorMock implements IServicioReceptorMockLocal
     
     @Override
     public void recibirSeñal(Señal señalRecibida) 
-    {
-        listaSeñales.add(señalRecibida);
+    {   
+        int contador = 0;
+        
+        for(int i = 0; i < listaSeñales.size(); i++)
+        {
+            if(señalRecibida.getId() == listaSeñales.get(i).getId() )
+            {
+                contador++;
+                double varianza = (double) (señalRecibida.getAlturaOlas() - listaSeñales.get(i).getAlturaOlas()) ;
+                if(varianza >= 1.5)
+                {
+                    listaSeñales.get(i).setAlturaOlas(señalRecibida.getAlturaOlas());
+                    listaSeñales.get(i).setVelocidadOlas(señalRecibida.getVelocidadOlas());
+                }
+                
+                break;
+            }
+        }
+        
+        if(contador == 0)
+        {
+            listaSeñales.add(señalRecibida);
+        }
     }
 
     @Override

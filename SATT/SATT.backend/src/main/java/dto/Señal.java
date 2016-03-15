@@ -112,5 +112,4 @@ public class Señal
         this.velocidadOlas = velocidadOlas;
     }
     
-    
 }

@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<!--
+To change this license header, choose License Headers in Project Properties.
+To change this template file, choose Tools | Templates
+and open the template in the editor.
+-->
+
+    <head>
+        <title>TODO supply a title</title>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    </head>
+    <body>
+         <h2 class="form-title">Información histórica de señales</h2>
+<div class="panel panel-default">
+    <!-- Default panel contents -->
+    <div class="panel-heading">Señales</div>
+    <!-- Table -->
+    <table class="table">
+        <thead>
+        <tr>
+            <th>ID</th>
+            <th>Latitud</th>
+            <th>Longitud</th>
+            <th>Altura</th>
+            <th>Velocidad</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr ng-repeat="senal in senales | orderBy: 'id'">
+            <td>{{senal.id}}</td>
+            <td>{{senal.latitud}}</td>
+            <td>{{senal.longitud}}</td>
+            <td>{{senal.alturaOlas}}</td>
+            <td>{{senal.velocidadOlas}}</td>
+        </tr>
+        </tbody>
+    </table>
+</div> 
+    </body>
+

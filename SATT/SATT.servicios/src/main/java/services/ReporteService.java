@@ -56,7 +56,12 @@ public class ReporteService {
         
         reporteEjb.recibirEventoSismico(temp); 
         Señal señal = receptorEjb.buscarUltimoRegistroSensorCercano(temp); 
+        
         return reporteEjb.generarReporteDeEvento(temp, señal);
+        //return ("Se ha iniciado el estado de alerta de tipo: " + retorno.getPerfilAlerta() + 
+          //      " se inicia la evacuación de los ciudadanos en la(s) zona(s) de " + retorno.getZona() 
+            //    + " se estima que el tsunami tendrá una altura de: " + retorno.getAltura() 
+              //  + " y el tiempo estimado de llegada es: " + retorno.getTiempoLlegada());
         
     }
    
@@ -67,10 +72,10 @@ public class ReporteService {
      */
     @GET
     @Path("mostrar/")
-    public ArrayList<EventoSismico> darEventosHistoricos() 
+    public ArrayList<Reporte> darReportesHistoricos() 
     {
-        return reporteEjb.darEventosHistoricos();
-
+        return reporteEjb.darReportesHistoricos();
+        //return reporteEjb.darReportesHistoricos();
     }
  
 }
