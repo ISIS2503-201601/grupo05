@@ -1,4 +1,4 @@
-package services;
+﻿package services;
 
 import dto.EventoSismico;
 import dto.Reporte;
@@ -87,10 +87,10 @@ public class ReporteService {
      */
     @GET
     @Path("mostrar/")
-    public ArrayList<EventoSismico> darEventosHistoricos() 
+    public ArrayList<Reporte> darReportesHistoricos() 
     {
-        return reporteEjb.darEventosHistoricos();
-
+        return reporteEjb.darReportesHistoricos();
+        //return reporteEjb.darReportesHistoricos();
     }
  
 }

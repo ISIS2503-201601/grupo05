@@ -45,6 +45,7 @@ public class ServicioReporteMock implements IServicioReporteMockLocal
     public ServicioReporteMock()
     {
         listaEventosSismicos = new ArrayList<EventoSismico>();
+        listaReportes = new ArrayList<Reporte>();
     }
 
     //-----------------------------------------------------------
@@ -60,6 +61,7 @@ public class ServicioReporteMock implements IServicioReporteMockLocal
     @Override
     public Reporte generarReporteDeEvento(EventoSismico evento, Señal señalRecibida) 
     {   
+        
         //el evento tiene también lat y long, por qué usas la señal-?
         // Poruqe me interesa el sensor que envío la señal, no?
         //pero "lo" que envía los parámetros de un evento sísmic o no es un sensor, son los manes
@@ -138,7 +140,9 @@ public class ServicioReporteMock implements IServicioReporteMockLocal
         
         //int numeroPerfil = (int) Math.random() * 4;
         //perfil = perfiles[numeroPerfil];
-        return new Reporte(1, perfil, zona, tiempo, señalRecibida.getAlturaOlas(), zonas);
+        Reporte retorno = new Reporte(1, perfil, zona, tiempo, señalRecibida.getAlturaOlas(), zonas);
+        listaReportes.add(retorno);
+        return retorno;
     }
 
     @Override
@@ -147,5 +151,10 @@ public class ServicioReporteMock implements IServicioReporteMockLocal
        return listaEventosSismicos;
     }
     
+    @Override
+    public ArrayList<Reporte> darReportesHistoricos()
+    {
+       return listaReportes;
+    }
     
 }

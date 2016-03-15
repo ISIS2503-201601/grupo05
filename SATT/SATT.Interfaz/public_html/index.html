@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<!--
+To change this license header, choose License Headers in Project Properties.
+To change this template file, choose Tools | Templates
+and open the template in the editor.
+-->
+<html ng-app="SATT">
+    <head>
+        <title>TODO supply a title</title>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <link rel="shortcut icon" href="">
+        <link rel="stylesheet" type="text/css" href="css/bootstrap.min.css">
+         <link rel="stylesheet" type="text/css" href="css/app.css">
+    </head>
+    <body>
+        <div>TODO write content</div>
+         <div class="container theme-showcase" role="main">
+ 
+            <div class="row featurette">
+                <div class="col-md-5">
+                    <img src="images/tsunami2.png" class="img-responsive" alt="500x500" data-holder-rendered="true">
+                </div>
+                <div class="col-md-7">
+                    <h2>Sistema de Alerta Temprana de Tsunamis</h2>
+                    <p class="lead">
+                    Este sistema busca que las distintas entidades de prevención de riesgos colombianas posean una herramienta
+                    competitiva que optimice y facilite su trabajo con el fin de prevenir la perdida de daños materiales y humanos.
+                    </p>
+                </div>
+            </div>
+            <hr>
+            <toolbar></toolbar>
+            <div ng-if="toolbar.isSelected(3)">
+                <senal-form competitorInfo></senal-form>
+            </div>
+            <div ng-if="toolbar.isSelected(2)">
+                <senal-info></senal-info>
+            </div>
+            <div ng-if="toolbar.isSelected(1)">
+                <reporte-form></reporte-form>
+            </div>
+            <div ng-if="toolbar.isSelected(4)">
+                <reporte-info></reporte-info>
+            </div>
+       
+        </div> 
+        <script type="text/javascript" src="js/angular.min.js"></script>
+        <script type="text/javascript" src="js/AngularControllers/app.js"></script>
+        {{4+5}}
+    </body>
+</html>

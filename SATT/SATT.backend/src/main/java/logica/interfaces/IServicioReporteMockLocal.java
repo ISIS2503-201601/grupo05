@@ -36,5 +36,11 @@ public interface IServicioReporteMockLocal
      * anteriores.
      */
     public ArrayList<EventoSismico> darEventosHistoricos();
+    
+    /**
+     * Retorna la información que se tiene guardada sobre reportes
+     * anteriores.
+     */
+    public ArrayList<Reporte> darReportesHistoricos();
 
 }
