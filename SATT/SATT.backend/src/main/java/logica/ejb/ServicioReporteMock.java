@@ -59,7 +59,7 @@ public class ServicioReporteMock implements IServicioReporteMockLocal
     }
     
     @Override
-    public Reporte generarReporteDeEvento(EventoSismico evento, Señal señalRecibida) 
+    public Reporte generarReporteDeEvento(EventoSismico evento, Señal señalRecibida, long id) 
     {   
         
         //el evento tiene también lat y long, por qué usas la señal-?
@@ -140,7 +140,7 @@ public class ServicioReporteMock implements IServicioReporteMockLocal
         
         //int numeroPerfil = (int) Math.random() * 4;
         //perfil = perfiles[numeroPerfil];
-        Reporte retorno = new Reporte(1, perfil, zona, tiempo, señalRecibida.getAlturaOlas(), zonas);
+        Reporte retorno = new Reporte(id, perfil, zona, tiempo, señalRecibida.getAlturaOlas(), zonas);
         listaReportes.add(retorno);
         return retorno;
     }
@@ -156,5 +156,7 @@ public class ServicioReporteMock implements IServicioReporteMockLocal
     {
        return listaReportes;
     }
+    
+    
     
 }

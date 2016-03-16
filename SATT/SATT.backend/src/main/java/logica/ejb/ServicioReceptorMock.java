@@ -40,7 +40,7 @@ public class ServicioReceptorMock implements IServicioReceptorMockLocal
 
     
     @Override
-    public void recibirSeñal(Señal señalRecibida) 
+    public boolean recibirSeñal(Señal señalRecibida) 
     {   
         int contador = 0;
         
@@ -56,14 +56,17 @@ public class ServicioReceptorMock implements IServicioReceptorMockLocal
                     listaSeñales.get(i).setVelocidadOlas(señalRecibida.getVelocidadOlas());
                 }
                 
-                break;
+                return false;
             }
         }
         
         if(contador == 0)
         {
             listaSeñales.add(señalRecibida);
+            
         }
+        
+        return true;
     }
 
     @Override
@@ -107,4 +110,9 @@ public class ServicioReceptorMock implements IServicioReceptorMockLocal
         return cercano;
     }
 
+    @Override
+    public void añadirSeñal(Señal aña)
+    {
+       listaSeñales.add(aña);
+    }
 }

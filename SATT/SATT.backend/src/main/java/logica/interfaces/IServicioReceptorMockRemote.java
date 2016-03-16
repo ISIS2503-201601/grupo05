@@ -19,7 +19,7 @@ public interface IServicioReceptorMockRemote
      * recibidas para procesarla en caso de ser necesario.
      * @param señalesRecibidas lista de señales enviadas por un sensor.
      */
-    public void recibirSeñal(Señal señalRecibida);
+    public boolean recibirSeñal(Señal señalRecibida);
     
     /**
      * Retorna todas las señales que se tengan almacenadas. Se utiliza principalmente en el 

@@ -5,7 +5,12 @@
  */
 package dto;
 
+import java.io.Serializable;
+import javax.persistence.Entity;
+import javax.persistence.Id;
+import javax.xml.bind.annotation.XmlRootElement;
 import org.eclipse.persistence.nosql.annotations.DataFormatType;
+import org.eclipse.persistence.nosql.annotations.Field;
 import org.eclipse.persistence.nosql.annotations.NoSql;
 
 /**
@@ -14,7 +19,9 @@ import org.eclipse.persistence.nosql.annotations.NoSql;
  * @author ac.zuleta10
  */
 @NoSql(dataFormat=DataFormatType.MAPPED)
-public class EventoSismico 
+@Entity
+@XmlRootElement
+public class EventoSismico implements Serializable 
 {
     
     //-----------------------------------------------------------
@@ -24,6 +31,9 @@ public class EventoSismico
     /**
      * Referencia que identifica de manera única el evento sísmico (para que persistan registros históricos sobre este)
      */
+     @Id
+//    @GeneratedValue
+    @Field(name="_id")
     private long id;
 
     /**
@@ -41,7 +51,7 @@ public class EventoSismico
      */
     private double distancia;
 
-
+    private Señal señalCercana;
     
     //-----------------------------------------------------------
     // Constructores
@@ -146,4 +156,14 @@ public class EventoSismico
     {
         this.distancia = distancia;
     }
+
+    public Señal getSeñalCercana() {
+        return señalCercana;
+    }
+
+    public void setSeñalCercana(Señal señalCercana) {
+        this.señalCercana = señalCercana;
+    }
+    
+    
 }

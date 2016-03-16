@@ -36,6 +36,13 @@ public class ReceptorService {
     @EJB
     private IServicioReceptorMockLocal receptorEjb;
     
+     /**
+     * Referencia al Ejb para el servicio reporte
+     */
+    @EJB
+    private IServicioReporteMockLocal reporteEjb;
+    
+    
 //    @PersistenceContext(unitName = "mongoPU")
     EntityManager entityManager;
 
@@ -57,14 +64,52 @@ public class ReceptorService {
     @Path("enviar/")
  
     public List<Señal> recibirSeñal(List<Señal> señalRecibida) 
-    {
+    {   
+        Query q = entityManager.createQuery("SELECT u FROM Señal u");
+        List<Señal> señales = q.getResultList();
+        for(Señal seña : señales)
+        {
+            receptorEjb.añadirSeñal(seña);
+        }
+        
         for(Señal s : señalRecibida)
         {
-            receptorEjb.recibirSeñal(s);
-            entityManager.getTransaction().begin();
-            entityManager.persist(s);
-            entityManager.getTransaction().commit();
-            entityManager.refresh(s);
+            boolean t = receptorEjb.recibirSeñal(s);
+            
+            if(t == true)
+            {
+              entityManager.getTransaction().begin();
+              entityManager.persist(s);
+              entityManager.getTransaction().commit();
+              entityManager.refresh(s);
+            }
+            
+            else
+            {  
+                Query o = entityManager.createQuery("SELECT u FROM EventoSismico u");
+                List<EventoSismico> eventos = o.getResultList();
+                for(EventoSismico p : eventos)
+                {   
+                    if(p.getSeñalCercana() != null)
+                    {
+                       if(p.getSeñalCercana().getId() == s.getId())
+                       {   
+                        Query k = entityManager.createQuery("SELECT u FROM Reporte u ORDER BY u.id DESC");
+                        List<Reporte> reportes = k.getResultList();
+                        long contador = reportes.get(0).getId();
+                        contador++;
+                        Reporte r = reporteEjb.generarReporteDeEvento(p, s, contador);
+                        entityManager.getTransaction().begin();
+                        entityManager.persist(r);
+                        entityManager.getTransaction().commit();
+                        entityManager.refresh(r);
+                       } 
+                    }
+                    
+                }
+                
+            }
+           
         }
         
         return señalRecibida;

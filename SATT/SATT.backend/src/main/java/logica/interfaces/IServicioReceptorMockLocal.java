@@ -21,7 +21,7 @@ public interface IServicioReceptorMockLocal
      * recibidas para procesarla en caso de ser necesario.
      * @param señalesRecibidas lista de señales enviadas por un sensor.
      */
-    public void recibirSeñal(Señal señalRecibida);
+    public boolean recibirSeñal(Señal señalRecibida);
     
     /**
      * Retorna todas las señales que se tengan almacenadas. Se utiliza principalmente en el 
@@ -30,5 +30,11 @@ public interface IServicioReceptorMockLocal
     public ArrayList<Señal> darSeñales();
 
 
-    public Señal buscarUltimoRegistroSensorCercano(EventoSismico evento); 
+    public Señal  buscarUltimoRegistroSensorCercano(EventoSismico evento); 
+    
+     /**
+     * Método que añade una señal
+     * @param aña 
+     */
+    public void añadirSeñal(Señal aña);
 }

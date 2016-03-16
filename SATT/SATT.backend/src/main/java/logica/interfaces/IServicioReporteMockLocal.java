@@ -29,7 +29,7 @@ public interface IServicioReporteMockLocal
      * @param evento objeto que contiene los parámetros del evento sísmico.
      * @return 
      */
-    public Reporte generarReporteDeEvento(EventoSismico evento, Señal señalRecibida);
+    public Reporte generarReporteDeEvento(EventoSismico evento, Señal señalRecibida, long id);
     
     /**
      * Retorna la información que se tiene guardada sobre eventos sismicos
@@ -42,5 +42,7 @@ public interface IServicioReporteMockLocal
      * anteriores.
      */
     public ArrayList<Reporte> darReportesHistoricos();
+    
+   
 
 }

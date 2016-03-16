@@ -9,6 +9,7 @@ import java.io.Serializable;
 import java.util.ArrayList;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.xml.bind.annotation.XmlRootElement;
 import org.eclipse.persistence.nosql.annotations.DataFormatType;
@@ -36,6 +37,7 @@ public class Reporte implements Serializable {
       */
     @Id
 //    @GeneratedValue
+    @GeneratedValue(strategy = GenerationType.AUTO)
     @Field(name="_id")
     private long id;
     
@@ -106,6 +108,30 @@ public class Reporte implements Serializable {
     , ArrayList zonas)
     {
         this.id = id;
+        this.perfilAlerta = perfilAlerta;
+        this.zona = zona;
+        this.tiempoLlegada = tiempoLlegada;
+        this.altura = altura;
+        this.zonas = new ArrayList<String>();
+        
+        for(int i = 0; i < zonas.size(); i++)
+        {
+            this.zonas.add((String) zonas.get(i));
+        }
+    }
+    
+    /**
+     * Constructor de la clase. Inicializa los atributos con los valores que ingresan por parametro.
+     * @param perfilAlerta perfil de alerta asociado al reporte
+     * @param zona zona en la cual se realiza el reporte.
+     * @param tiempoLlegada tiempo estimado de llegada del tsunami
+     * @param altura altura de la ola asociada al tsunami
+     * @param zonas Zonas geográficas afectadas por el tsunami
+     */
+    public Reporte(String perfilAlerta, String zona, double tiempoLlegada, double altura
+    , ArrayList zonas)
+    {
+        //this.id = id;
         this.perfilAlerta = perfilAlerta;
         this.zona = zona;
         this.tiempoLlegada = tiempoLlegada;
