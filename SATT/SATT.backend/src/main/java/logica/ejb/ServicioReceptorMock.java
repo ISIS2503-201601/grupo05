@@ -40,9 +40,33 @@ public class ServicioReceptorMock implements IServicioReceptorMockLocal
 
     
     @Override
-    public void recibirSeñal(Señal señalRecibida) 
-    {
-        listaSeñales.add(señalRecibida);
+    public boolean recibirSeñal(Señal señalRecibida) 
+    {   
+        int contador = 0;
+        
+        for(int i = 0; i < listaSeñales.size(); i++)
+        {
+            if(señalRecibida.getId() == listaSeñales.get(i).getId() )
+            {
+                contador++;
+                double varianza = (double) Math.abs(señalRecibida.getAlturaOlas() - listaSeñales.get(i).getAlturaOlas()) ;
+                if(varianza >= 1.5)
+                {
+                    listaSeñales.get(i).setAlturaOlas(señalRecibida.getAlturaOlas());
+                    listaSeñales.get(i).setVelocidadOlas(señalRecibida.getVelocidadOlas());
+                }
+                
+                return false;
+            }
+        }
+        
+        if(contador == 0)
+        {
+            listaSeñales.add(señalRecibida);
+            
+        }
+        
+        return true;
     }
 
     @Override
@@ -70,15 +94,16 @@ public class ServicioReceptorMock implements IServicioReceptorMockLocal
                 Math.pow( (longitud - cercano.getLongitud()), 2 ) );
         double d = 0;
         
-        for(Señal señal : listaSeñales)
-        {
-            d = Math.sqrt( Math.pow( (latitud - cercano.getLatitud() ), 2) + 
-                Math.pow( (longitud - cercano.getLongitud()), 2 ) );
+        for(int i = 0; i < listaSeñales.size(); i++)
+        {   
+            Señal señalActual = listaSeñales.get(i);
+            d = Math.sqrt( Math.pow( (latitud - señalActual.getLatitud() ), 2) + 
+                Math.pow( (longitud - señalActual.getLongitud()), 2 ) );
             
             if(d < distanciaMin)
             {
                 distanciaMin = d;
-                cercano = señal;
+                cercano = señalActual;
             }
             
         }
@@ -86,4 +111,9 @@ public class ServicioReceptorMock implements IServicioReceptorMockLocal
         return cercano;
     }
 
+    @Override
+    public void añadirSeñal(Señal aña)
+    {
+       listaSeñales.add(aña);
+    }
 }

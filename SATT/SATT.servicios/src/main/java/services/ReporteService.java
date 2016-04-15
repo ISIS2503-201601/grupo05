@@ -11,6 +11,7 @@ import javax.ejb.EJB;
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
+import javax.persistence.Query;
 import javax.ws.rs.Consumes;
 
 import javax.ws.rs.GET;
@@ -18,6 +19,7 @@ import javax.ws.rs.POST;
 import javax.ws.rs.Path;
 import javax.ws.rs.Produces;
 import javax.ws.rs.core.MediaType;
+import javax.ws.rs.core.Response;
 import logica.ejb.PersistenceManager;
 import logica.interfaces.IServicioReceptorMockLocal;    
 import logica.interfaces.IServicioReporteMockLocal;
@@ -70,9 +72,37 @@ public class ReporteService {
             temp = es;
         }
         
-        reporteEjb.recibirEventoSismico(temp); 
-        Señal señal = receptorEjb.buscarUltimoRegistroSensorCercano(temp); 
-        Reporte r = reporteEjb.generarReporteDeEvento(temp, señal);
+        Query q = entityManager.createQuery("SELECT u FROM Señal u");
+        List<Señal> señales = q.getResultList();
+        for(Señal seña : señales)
+        {
+            receptorEjb.añadirSeñal(seña);
+        }
+        
+        System.err.println(señales.size());
+        
+        Señal señal = receptorEjb.buscarUltimoRegistroSensorCercano(temp);
+        
+        temp.setSeñalCercana(señal);
+        
+        //reporteEjb.recibirEventoSismico(temp);
+        entityManager.getTransaction().begin();
+        entityManager.persist(temp);
+        entityManager.getTransaction().commit();
+        entityManager.refresh(temp);
+        
+        Query p = entityManager.createQuery("SELECT u FROM Reporte u ORDER BY u.id DESC");
+        
+        List<Reporte> reportes = p.getResultList();
+        long contador = 0;
+        if( !p.getResultList().isEmpty())
+        {
+          contador = reportes.get(0).getId();
+        }
+            
+        contador++;
+        
+        Reporte r = reporteEjb.generarReporteDeEvento(temp, señal, contador);
         entityManager.getTransaction().begin();
         entityManager.persist(r);
         entityManager.getTransaction().commit();
@@ -87,10 +117,11 @@ public class ReporteService {
      */
     @GET
     @Path("mostrar/")
-    public ArrayList<EventoSismico> darEventosHistoricos() 
-    {
-        return reporteEjb.darEventosHistoricos();
-
+    public Response darReportesHistoricos() 
+    {   
+        Query q = entityManager.createQuery("SELECT u FROM Reporte u");
+        List<Reporte> reportes = q.getResultList();
+        return Response.status(200).header("Access-Control-Allow-Origin", "*").entity(reportes).build();
     }
  
 }

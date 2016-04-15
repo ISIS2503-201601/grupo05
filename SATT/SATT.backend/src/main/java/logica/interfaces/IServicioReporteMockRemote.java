@@ -36,4 +36,6 @@ public interface IServicioReporteMockRemote
      * anteriores.
      */
     public ArrayList<EventoSismico> darEventosHistoricos();
+    
+    
 }

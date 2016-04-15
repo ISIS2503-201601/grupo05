@@ -45,6 +45,7 @@ public class ServicioReporteMock implements IServicioReporteMockLocal
     public ServicioReporteMock()
     {
         listaEventosSismicos = new ArrayList<EventoSismico>();
+        listaReportes = new ArrayList<Reporte>();
     }
 
     //-----------------------------------------------------------
@@ -58,21 +59,22 @@ public class ServicioReporteMock implements IServicioReporteMockLocal
     }
     
     @Override
-    public Reporte generarReporteDeEvento(EventoSismico evento, Señal señalRecibida) 
+    public Reporte generarReporteDeEvento(EventoSismico evento, Señal señalRecibida, long id) 
     {   
+        
         //el evento tiene también lat y long, por qué usas la señal-?
         // Poruqe me interesa el sensor que envío la señal, no?
         //pero "lo" que envía los parámetros de un evento sísmic o no es un sensor, son los manes
         //de otra organización ahí
         //Se instancian los modelos premodelados
         Modelo modeloA1 = new Modelo(10000, 100000, 0, 5, "Atlantico", "Informativo" );
-        Modelo modeloA2 = new Modelo(1000, 10000, 5, 10, "Atlantico", "Precaucion" );
-        Modelo modeloA3 = new Modelo(100, 1000, 10, 20, "Atlantico", "Alerta" );
-        Modelo modeloA4 = new Modelo(10, 100, 20, 30, "Atlantico", "Alarma" );
+        Modelo modeloA2 = new Modelo(10000, 100000, 5, 10, "Atlantico", "Precaucion" );
+        Modelo modeloA3 = new Modelo(10000, 100000, 10, 20, "Atlantico", "Alerta" );
+        Modelo modeloA4 = new Modelo(10000, 100000, 20, 30, "Atlantico", "Alarma" );
         Modelo modeloP1 = new Modelo(10000, 100000, 0, 5, "Pacifico", "Informativo" );
-        Modelo modeloP2 = new Modelo(1000, 10000, 5, 10, "Pacifico", "Precaucion" );
-        Modelo modeloP3 = new Modelo(100, 1000, 10, 20, "Pacifico", "Alerta" );
-        Modelo modeloP4 = new Modelo(10, 100, 20, 30, "Pacifico", "Alarma" );
+        Modelo modeloP2 = new Modelo(10000, 100000, 5, 10, "Pacifico", "Precaucion" );
+        Modelo modeloP3 = new Modelo(10000, 100000, 10, 20, "Pacifico", "Alerta" );
+        Modelo modeloP4 = new Modelo(10000, 100000, 20, 30, "Pacifico", "Alarma" );
         
         ArrayList<Modelo> premodelados = new ArrayList<Modelo>();
         premodelados.add(modeloA1);
@@ -91,20 +93,20 @@ public class ServicioReporteMock implements IServicioReporteMockLocal
         ArrayList<String> zonas = new ArrayList<String>();
         String zona = "";
         double tiempo = 0;
-        String perfil = "";
+        String perfil = "informativo";
         
          
         //Calculo de zona costera mas cercana
-        if(señalRecibida.getLatitud()<= 11.5 && señalRecibida.getLatitud()>= 11 
-        && señalRecibida.getLongitud() <= -74.5 && señalRecibida.getLongitud() >= -74)
+        if(señalRecibida.getLatitud()< 12 && señalRecibida.getLatitud()> 11 
+        && señalRecibida.getLongitud() > -75 && señalRecibida.getLongitud() < -74)
         {
            zona = "Atlantico";
            int zonaAfectada = (int) Math.random() * 5;
            zonas.add(zonasAtlantico[zonaAfectada]); 
         }
             
-        else if(señalRecibida.getLatitud()<= 7 && señalRecibida.getLatitud()>= 5 
-        && señalRecibida.getLongitud()>= -77 && señalRecibida.getLongitud()<= -78)
+        else if(señalRecibida.getLatitud()< 7 && señalRecibida.getLatitud()> 5 
+        && señalRecibida.getLongitud()< -77 && señalRecibida.getLongitud()> -78)
         {
            zona = "Pacifico";
            int zonaAfectada = (int) Math.random() * 4;
@@ -138,7 +140,9 @@ public class ServicioReporteMock implements IServicioReporteMockLocal
         
         //int numeroPerfil = (int) Math.random() * 4;
         //perfil = perfiles[numeroPerfil];
-        return new Reporte(1, perfil, zona, tiempo, señalRecibida.getAlturaOlas(), zonas);
+        Reporte retorno = new Reporte(id, perfil, zona, tiempo, señalRecibida.getAlturaOlas(), zonas);
+        listaReportes.add(retorno);
+        return retorno;
     }
 
     @Override
@@ -146,6 +150,13 @@ public class ServicioReporteMock implements IServicioReporteMockLocal
     {
        return listaEventosSismicos;
     }
+    
+    @Override
+    public ArrayList<Reporte> darReportesHistoricos()
+    {
+       return listaReportes;
+    }
+    
     
     
 }
