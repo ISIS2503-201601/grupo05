@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<!--
+To change this license header, choose License Headers in Project Properties.
+To change this template file, choose Tools | Templates
+and open the template in the editor.
+-->
+    <head>
+        <title>TODO supply a title</title>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    </head>
+   <body>
+         <form name="competitorForm" ng-submit="addSenal()" ng-controller="senalCtrl" novalidate>
+    <h2 class="form-title">Ingrese sus datos para inicio de sesión:</h2>
+    <div class="row">
+        <div class="col-md-6">
+            <label>Nombre de usuario:</label>
+            <input ng-model="senal.id" type="number" class="form-control" required/>
+        </div>
+        <div class="col-md-6">
+            <label>Contraseña</label>
+            <input ng-model="senal.latitud" type="number" class="form-control" required/>
+        </div>
+    </div>
+    <input type="submit" value="Enviar" class="btn btn-default">
+</form>
+    </body>
