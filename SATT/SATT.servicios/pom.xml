@@ -10,8 +10,10 @@
     <name>SATT.servicios</name>
 
     <properties>
+        
         <endorsed.dir>${project.build.directory}/endorsed</endorsed.dir>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+        
     </properties>
 
     <dependencies>
@@ -58,11 +60,71 @@
 					<artifactId>commonj.sdo</artifactId>
 				</exclusion>
 			</exclusions>
-		</dependency> 
+		</dependency>
+                 <!-- Shiro -->
+        <dependency>
+            <groupId>org.apache.shiro</groupId>
+            <artifactId>shiro-web</artifactId>
+            <version>1.2.3</version>
+            <type>jar</type>
+        </dependency> 
+        
+         <!--   Stormpath   -->
+ 
+         <dependency>
+                <groupId>com.stormpath.shiro</groupId>
+                <artifactId>stormpath-shiro-core</artifactId>
+                <version>0.6.0</version>
+         </dependency>
+ 
+        <dependency>
+            <groupId>com.stormpath.sdk</groupId>
+            <artifactId>stormpath-sdk-api</artifactId>
+            <version>1.0.RC2</version>
+              <scope>runtime</scope>
+        </dependency> 
+ 
+        <dependency>
+            <groupId>com.stormpath.sdk</groupId>
+            <artifactId>stormpath-sdk-httpclient</artifactId>
+            <version>1.0.RC2</version>
+            <scope>runtime</scope>
+        </dependency> 
+        
     </dependencies>
-
+    
+    
     <build>
         <plugins>
+            <plugin>
+    <groupId>org.codehaus.mojo</groupId>
+    <artifactId>keytool-maven-plugin</artifactId>
+    <version>1.0</version>
+    <executions>
+        <execution>
+            <phase>generate-resources</phase>
+            <id>clean</id>
+            <goals>
+                <goal>clean</goal>
+            </goals>
+        </execution>
+        <execution>
+            <phase>generate-resources</phase>
+            <id>genkey</id>
+            <goals>
+                <goal>genkey</goal>
+            </goals>
+        </execution>
+    </executions>
+    <configuration>
+        <keystore>${project.build.directory}/ssl.keystore</keystore>
+        <dname>cn=localhost</dname>
+        <keypass>appfuse</keypass>
+        <storepass>appfuse</storepass>
+        <alias>appfuse</alias>
+        <keyalg>RSA</keyalg>
+    </configuration>
+   </plugin>
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-compiler-plugin</artifactId>
@@ -104,11 +166,26 @@
                                     <type>jar</type>
                                 </artifactItem>
                             </artifactItems>
+                        <connectors>
+    <connector implementation="org.eclipse.jetty.server.nio.SelectChannelConnector">
+        <forwarded>true</forwarded>
+        <port>8080</port>
+    </connector>
+    <connector implementation="org.eclipse.jetty.server.ssl.SslSelectChannelConnector">
+        <forwarded>true</forwarded>
+        <port>8443</port>
+        <maxIdleTime>60000</maxIdleTime>
+        <keystore>${project.build.directory}/ssl.keystore</keystore>
+        <password>appfuse</password>
+        <keyPassword>appfuse</keyPassword>
+    </connector>
+</connectors>
                         </configuration>
                     </execution>
                 </executions>
             </plugin>
         </plugins>
     </build>
+
 
 </project>
