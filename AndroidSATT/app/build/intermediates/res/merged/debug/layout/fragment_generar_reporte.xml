@@ -1,0 +1,66 @@
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+
+    android:id="@+id/generarReporteFragment"
+
+    tools:context="grupo05.satt.GenerarReporte">
+
+    <GridLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:columnCount="1"
+        android:rowCount="6">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textAppearance="?android:attr/textAppearanceSmall"
+            android:text="Registre un evento sísmico para generar un reporte"
+            android:id="@+id/lblRegistrarReporte"
+            android:layout_gravity="left|center_horizontal"
+            android:textSize="18dp"
+            android:textColor="#000000"
+            android:textStyle="italic" />
+
+        <EditText
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:id="@+id/inpIdReporteNuevo"
+            android:hint="Id"
+            android:layout_gravity="left|center_horizontal" />
+
+
+        <EditText
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:id="@+id/inpLatitudReporteNuevo"
+            android:hint="Latitud"
+            android:layout_gravity="left|center_horizontal" />
+
+        <EditText
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:id="@+id/inpLongitudReporteNuevo"
+            android:hint="Longitud"
+            android:layout_gravity="left|center_horizontal" />
+
+        <EditText
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:id="@+id/inpDistanciaReporteNuevo"
+            android:hint="Distancia"
+            android:layout_gravity="left|center_horizontal" />
+
+        <Button
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Enviar"
+            android:id="@+id/btnEnviarReporte"
+            android:onClick=""/>
+
+    </GridLayout>
+
+</FrameLayout>

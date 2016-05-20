@@ -1,0 +1,73 @@
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+
+    android:id="@+id/senalNuevaFragment"
+
+    tools:context=".SenalNueva">
+
+    <GridLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:columnCount="1"
+        android:rowCount="7">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textAppearance="?android:attr/textAppearanceSmall"
+            android:text="Registre la información de una señal"
+            android:id="@+id/lblRegistrarSeñal"
+            android:layout_gravity="left|center_horizontal"
+            android:textSize="18dp"
+            android:textColor="#000000"
+            android:textStyle="italic" />
+
+        <EditText
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:id="@+id/inpIdSeñalNueva"
+            android:hint="Id"
+            android:layout_gravity="left|center_horizontal" />
+
+
+        <EditText
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:id="@+id/inpLatitudSeñalNueva"
+            android:hint="Latitud"
+            android:layout_gravity="left|center_horizontal" />
+
+        <EditText
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:id="@+id/inpLongitudSeñalNueva"
+            android:hint="Longitud"
+            android:layout_gravity="left|center_horizontal" />
+
+        <EditText
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:id="@+id/inpAlturaOlaSeñalNueva"
+            android:hint="Altura de la Ola"
+            android:layout_gravity="left|center_horizontal" />
+
+        <EditText
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:id="@+id/inpVelocidadOlaSeñalNueva"
+            android:hint="Velocidad de la Ola"
+            android:layout_gravity="left|center_horizontal" />
+
+        <Button
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Enviar"
+            android:id="@+id/btnEnviarSeñal"
+            android:onClick=""/>
+
+    </GridLayout>
+
+</FrameLayout>
