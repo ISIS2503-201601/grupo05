@@ -59,10 +59,13 @@ public class EventoSismico implements Serializable
 
     /**
      * Constructor sin argumentos de la clase
+     * Este constructor está vacío para facilitar la transferencia del objeto
+     * y poder modificarlo utilizando los métodos set
+     * durante el tiempo de ejecución
      */
     public EventoSismico() 
     {
-
+         //No hace nada porque  estamos ocupados haciendo dalgo
     }
 
     /**

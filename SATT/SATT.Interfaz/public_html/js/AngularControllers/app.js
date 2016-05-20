@@ -9,20 +9,110 @@
         return{
             restrict:'E',
             templateUrl: 'partials/toolbar.html',
-            controller:function(){
+            controller: function(){
                 this.tab=0;
                 this.selectTab=function(setTab){
                     this.tab=setTab;
                 };
+                
                 this.isSelected=function(tabParam){
                     return this.tab===tabParam;
                 };
-            },
+                
+                this.isAdmin=function(){
+                    return alert ($rootScope.user.test.indexOf("admin") != -1);
+                };
+                
+                this.isRSNC=function(){
+                    return $rootScope.tipoUsuario === "rsnc";
+                };
+                
+                this.isExperto=function(){
+                    return $rootScope.tipoUsuario === "experto";
+                };
+                
+                this.isSensor=function(){
+                    return $rootScope.tipoUsuario === "sensor";
+                };
+                
+                this.init=function(){
+                    $rootScope = "inicializacion";
+                    this.selectTab(5);
+                    return true;
+                };
+            }, 
+          
             controllerAs:'toolbar'
+            
         };
     });
     
-     SATT.directive('senalInfo', function(){
+     SATT.directive('loginForm', function(){
+        return{
+            restrict:'E',
+            templateUrl:'partials/login-form.html',
+            controller: function(){
+                
+                $rootScope.user = "";
+                $rootScope.pass = "";
+                 $rootScope.user1 = "";
+                $rootScope.pass1 = "";
+                
+                this.loguearse=function(username, passs){
+                    $rootScope.user = username;
+                    $rootScope.pass = passs;
+                };
+                
+                this.isAdmin = function()
+                {
+                    if (alert(this.user.test.indexOf("admin") != -1) && this.validUser())
+                    {
+                      $rootScope.tipoUsuario = "admin";  
+                    }
+                    
+                    return $rootScope.tipoUsuario;
+                };
+                
+                this.isSensor = function()
+                {
+                    if (alert(this.user.test.indexOf("sensor") != -1) && this.validUser())
+                    {
+                       $rootScope.tipoUsuario = "sensor";    
+                    }
+                    
+                    return  $rootScope.tipoUsuario;
+                };
+                
+                this.isRsnc = function()
+                {
+                    if ( alert(this.user.test.indexOf("rsnc") != -1) && this.validUser())
+                    {
+                         $rootScope.tipoUsuario = "rsnc"; 
+                    }
+                    
+                    return  $rootScope.tipoUsuario ;
+                };
+                
+                 this.isExperto = function()
+                {
+                    if ( alert(this.user.test.indexOf("experto") != -1) && this.validUser())
+                    {
+                         $rootScope.tipoUsuario = "experto"; 
+                    }
+                    
+                     return  $rootScope.tipoUsuario;
+                };
+                
+                this.validUser = function(){
+                    return this.pass === "Sensor01";
+                };
+            },  controllerAs:'loginCtrl'
+        };
+    });
+    
+    
+    
+    SATT.directive('senalInfo', function(){
         return{
             restrict:'E',
             templateUrl:'partials/senal-info.html',

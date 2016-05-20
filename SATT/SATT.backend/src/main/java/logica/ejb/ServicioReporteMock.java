@@ -10,6 +10,7 @@ import logica.interfaces.IServicioReporteMockLocal;
 
 import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
 import javax.ejb.Stateless;
 
 /**
@@ -44,8 +45,8 @@ public class ServicioReporteMock implements IServicioReporteMockLocal
      */
     public ServicioReporteMock()
     {
-        listaEventosSismicos = new ArrayList<EventoSismico>();
-        listaReportes = new ArrayList<Reporte>();
+        listaEventosSismicos = new ArrayList<>();
+        listaReportes = new ArrayList<>();
     }
 
     //-----------------------------------------------------------
@@ -76,7 +77,7 @@ public class ServicioReporteMock implements IServicioReporteMockLocal
         Modelo modeloP3 = new Modelo(10000, 100000, 10, 20, "Pacifico", "Alerta" );
         Modelo modeloP4 = new Modelo(10000, 100000, 20, 30, "Pacifico", "Alarma" );
         
-        ArrayList<Modelo> premodelados = new ArrayList<Modelo>();
+        ArrayList<Modelo> premodelados = new ArrayList<>();
         premodelados.add(modeloA1);
         premodelados.add(modeloA2);
         premodelados.add(modeloA3);
@@ -90,9 +91,8 @@ public class ServicioReporteMock implements IServicioReporteMockLocal
         String[]zonasPacifico = {"Chocó", "Valle del Cauca", "Cauca", "Nariño"};
         String[] perfiles = {"informativo", "precaución", "alerta", "alarma"};
       
-        ArrayList<String> zonas = new ArrayList<String>();
-        String zona = "";
-        double tiempo = 0;
+        ArrayList<String> zonas = new ArrayList<>();
+        String zona;
         String perfil = "informativo";
         
          
@@ -112,10 +112,14 @@ public class ServicioReporteMock implements IServicioReporteMockLocal
            int zonaAfectada = (int) Math.random() * 4;
            zonas.add(zonasPacifico[zonaAfectada]);
         }
-            
+        
+        else
+        {
+            zona = "";
+        }
         
         //Se calcula el tiempo de llegada de la ola
-        tiempo = evento.getDistancia()/señalRecibida.getVelocidadOlas();
+        double tiempo = evento.getDistancia()/señalRecibida.getVelocidadOlas();
         
         /**
          * Se encuentra el perfil de alerta segun escenarios 
@@ -124,35 +128,29 @@ public class ServicioReporteMock implements IServicioReporteMockLocal
         for(int i = 0; i < premodelados.size(); i++)
         {
           Modelo modeloActual = premodelados.get(i);
-          if(zona.equals(modeloActual.getZona()))
+          if(zona.equals(modeloActual.getZona()) && señalRecibida.getAlturaOlas() >= 
+          modeloActual.getAlturaMinima() && señalRecibida.getAlturaOlas() <= 
+          modeloActual.getAlturaMaxima() && tiempo >= modeloActual.getTiempoMinimo() 
+          && tiempo <= modeloActual.getTiempoMaximo())
           {
-              if(señalRecibida.getAlturaOlas() >= modeloActual.getAlturaMinima()
-              && señalRecibida.getAlturaOlas() <= modeloActual.getAlturaMaxima())
-              {
-                  if(tiempo >= modeloActual.getTiempoMinimo() &&
-                     tiempo <= modeloActual.getTiempoMaximo())
-                  {
                       perfil = modeloActual.getPerfil();
-                  }
-              }
+                 
           }
         }
         
-        //int numeroPerfil = (int) Math.random() * 4;
-        //perfil = perfiles[numeroPerfil];
         Reporte retorno = new Reporte(id, perfil, zona, tiempo, señalRecibida.getAlturaOlas(), zonas);
         listaReportes.add(retorno);
         return retorno;
     }
 
     @Override
-    public ArrayList<EventoSismico> darEventosHistoricos()
+    public List<EventoSismico> darEventosHistoricos()
     {
        return listaEventosSismicos;
     }
     
     @Override
-    public ArrayList<Reporte> darReportesHistoricos()
+    public List<Reporte> darReportesHistoricos()
     {
        return listaReportes;
     }

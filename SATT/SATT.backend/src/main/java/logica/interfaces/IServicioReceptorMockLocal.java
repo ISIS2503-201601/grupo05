@@ -5,6 +5,7 @@ import dto.EventoSismico;
 import java.util.ArrayList;
 import javax.ejb.Local;
 import dto.Señal;
+import java.util.List;
 
 /**
  * Es el Mock para ser accedido localmente que ayuda con las pruebas del servicio
@@ -26,8 +27,9 @@ public interface IServicioReceptorMockLocal
     /**
      * Retorna todas las señales que se tengan almacenadas. Se utiliza principalmente en el 
      * servicio que despliega la información histórica.
+     * @return lista de cosas 
      */
-    public ArrayList<Señal> darSeñales();
+    public List<Señal> darSeñales();
 
 
     public Señal  buscarUltimoRegistroSensorCercano(EventoSismico evento); 

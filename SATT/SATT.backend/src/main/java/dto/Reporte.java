@@ -7,10 +7,12 @@ package dto;
 
 import java.io.Serializable;
 import java.util.ArrayList;
+import java.util.List;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import excepciones.ZonaException;
 import javax.xml.bind.annotation.XmlRootElement;
 import org.eclipse.persistence.nosql.annotations.DataFormatType;
 import org.eclipse.persistence.nosql.annotations.Field;
@@ -75,7 +77,11 @@ public class Reporte implements Serializable {
      */
     public Reporte()
     {
-        
+        /*
+        * Este constructor está vacío para facilitar la transferencia del objeto
+     * y poder modificarlo utilizando los métodos set
+     * durante el tiempo de ejecución
+        */
     }
     
      /**
@@ -104,15 +110,16 @@ public class Reporte implements Serializable {
      * @param altura altura de la ola asociada al tsunami
      * @param zonas Zonas geográficas afectadas por el tsunami
      */
+ 
     public Reporte(long id, String perfilAlerta, String zona, double tiempoLlegada, double altura
-    , ArrayList zonas)
+    ,List zonas)
     {
         this.id = id;
         this.perfilAlerta = perfilAlerta;
         this.zona = zona;
         this.tiempoLlegada = tiempoLlegada;
         this.altura = altura;
-        this.zonas = new ArrayList<String>();
+        this.zonas = new ArrayList<>();
         
         for(int i = 0; i < zonas.size(); i++)
         {
@@ -129,14 +136,13 @@ public class Reporte implements Serializable {
      * @param zonas Zonas geográficas afectadas por el tsunami
      */
     public Reporte(String perfilAlerta, String zona, double tiempoLlegada, double altura
-    , ArrayList zonas)
+    , List zonas)
     {
-        //this.id = id;
         this.perfilAlerta = perfilAlerta;
         this.zona = zona;
         this.tiempoLlegada = tiempoLlegada;
         this.altura = altura;
-        this.zonas = new ArrayList<String>();
+        this.zonas = new ArrayList<>();
         
         for(int i = 0; i < zonas.size(); i++)
         {
@@ -198,16 +204,16 @@ public class Reporte implements Serializable {
      * @param zona nueva zona costera asociada al reporte.
      * @throws  Exception si se le intenta colocar una zona no válida.
      */
-    public void setZona(String zona) throws Exception
+    public void setZona(String zona) throws ZonaException
     {   
-        if(zona.equals("Atlantico") || zona.equals("Pacifico"))
+        if("Atlantico".equals(zona) || "Pacifico".equals(zona))
         {
           this.zona = zona;
         } 
          
         else
         {
-            throw new Exception ("La zona costera asociada solo puede ser la costa atlantica o pacifica");
+            throw new ZonaException ("La zona costera asociada solo puede ser la costa atlantica o pacifica");
         }
        
     }
@@ -252,7 +258,7 @@ public class Reporte implements Serializable {
      * Método que retorna las zonas afectadas por el tsunami.
      * @return zonas Las zonas afectadas
      */
-     public ArrayList<String> getZonas()
+     public List<String> getZonas()
      {
          return zonas;
      }
@@ -262,7 +268,7 @@ public class Reporte implements Serializable {
       * por unas que entran por parámetro.
       * @param zonas ArrayList que contiene las zonas afectadas
       */
-     public void setZonas(ArrayList<String> zonas)
+     public void setZonas(List<String> zonas)
      {
          this.zonas.clear();
          

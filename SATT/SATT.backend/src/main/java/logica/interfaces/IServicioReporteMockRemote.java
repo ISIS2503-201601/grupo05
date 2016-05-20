@@ -6,6 +6,7 @@ import java.util.ArrayList;
 import javax.ejb.Remote;
 import dto.Reporte;
 import dto.EventoSismico;
+import java.util.List;
 
 /**
  * Mock que ayuda en la prueba del servicio reporte, el cual ofrece:
@@ -35,7 +36,7 @@ public interface IServicioReporteMockRemote
      * Retorna la información que se tiene guardada sobre eventos sismicos
      * anteriores.
      */
-    public ArrayList<EventoSismico> darEventosHistoricos();
+    public List<EventoSismico> darEventosHistoricos();
     
     
 }

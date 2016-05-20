@@ -25,6 +25,6 @@ public interface IServicioReceptorMockRemote
      * Retorna todas las señales que se tengan almacenadas. Se utiliza principalmente en el 
      * servicio que despliega la información histórica.
      */
-    public ArrayList<Señal> darSeñales();
+    public List<Señal> darSeñales();
 
 }

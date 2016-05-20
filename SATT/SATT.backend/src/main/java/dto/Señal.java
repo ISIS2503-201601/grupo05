@@ -58,7 +58,11 @@ public class Señal implements Serializable {
 
     public Señal() 
     {
-        
+        /*
+        * Este constructor está vacío para facilitar la transferencia del objeto
+     * y poder modificarlo utilizando los métodos set
+     * durante el tiempo de ejecución
+        */
         
     }
 

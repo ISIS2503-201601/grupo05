@@ -10,16 +10,16 @@ and open the template in the editor.
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
     </head>
    <body>
-         <form name="competitorForm" ng-submit="addSenal()" ng-controller="senalCtrl" novalidate>
+         <form name="competitorForm" ng-submit="loguearse(user1, pass1)" ng-controller="loginCtrl" novalidate>
     <h2 class="form-title">Ingrese sus datos para inicio de sesión:</h2>
     <div class="row">
         <div class="col-md-6">
             <label>Nombre de usuario:</label>
-            <input ng-model="senal.id" type="number" class="form-control" required/>
+            <input ng-model="user1" type="text" class="form-control" required/>
         </div>
         <div class="col-md-6">
             <label>Contraseña</label>
-            <input ng-model="senal.latitud" type="number" class="form-control" required/>
+            <input ng-model="pass1" type="password" class="form-control" required/>
         </div>
     </div>
     <input type="submit" value="Enviar" class="btn btn-default">

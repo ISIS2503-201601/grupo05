@@ -3,7 +3,8 @@
 <web-app xmlns="http://java.sun.com/xml/ns/javaee"
          xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
          xsi:schemaLocation="http://java.sun.com/xml/ns/javaee http://java.sun.com/xml/ns/javaee/web-app_3_0.xsd"
-         version="3.0">
+         version="3.0"
+         >
     
     <listener>
         <listener-class>org.apache.shiro.web.env.EnvironmentLoaderListener</listener-class>
@@ -13,7 +14,8 @@
         <filter-name>ShiroFilter</filter-name>
         <filter-class>org.apache.shiro.web.servlet.ShiroFilter</filter-class>
     </filter>
-
+    
+ 
     <filter-mapping>
         <filter-name>ShiroFilter</filter-name>
         <url-pattern>/*</url-pattern>
@@ -22,6 +24,8 @@
         <dispatcher>INCLUDE</dispatcher>
         <dispatcher>ERROR</dispatcher>
     </filter-mapping>
+    
+    
     
     <session-config>
         <session-timeout>
@@ -51,5 +55,20 @@
         <servlet-name>ServletAdaptor</servlet-name>
         <url-pattern>/webresources/*</url-pattern>
     </servlet-mapping>
+    
+     <security-constraint>   
+    <display-name>SecurityConstraint</display-name>   
+    <web-resource-collection>   
+        <web-resource-name>Secure Area</web-resource-name>   
+        <url-pattern>/webresources/receptor/*</url-pattern>   
+        <url-pattern>/webresources/reportes/*</url-pattern>             
+        <http-method>GET</http-method>  
+        <http-method>POST</http-method>     
+    </web-resource-collection>
+                
+    <user-data-constraint>   
+        <transport-guarantee>CONFIDENTIAL</transport-guarantee>   
+    </user-data-constraint>   
+    </security-constraint>
     
 </web-app>
