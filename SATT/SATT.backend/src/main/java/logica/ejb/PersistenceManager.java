@@ -6,8 +6,6 @@
  */
 package logica.ejb;
 
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import javax.persistence.EntityManagerFactory;
 import javax.persistence.Persistence;
 
@@ -16,9 +14,7 @@ import javax.persistence.Persistence;
  * @author Mauricio
  */
 public class PersistenceManager {
-    
-    private static final Logger log= Logger.getLogger( PersistenceManager.class.getName() );
-    
+
     public static final boolean DEBUG = true;
 
     private static final PersistenceManager singleton = new PersistenceManager();
@@ -48,7 +44,7 @@ public class PersistenceManager {
             emf.close();
             emf = null;
             if (DEBUG) {
-                log.log(Level.FINER, "n*** Persistence finished at " + new java.util.Date());
+                System.out.println("n*** Persistence finished at " + new java.util.Date());
             }
         }
     }
@@ -57,7 +53,7 @@ public class PersistenceManager {
 
         this.emf = Persistence.createEntityManagerFactory("mongoPU", System.getProperties());
         if (DEBUG) {
-            log.log(Level.FINE,"n*** Persistence started at " + new java.util.Date());
+            System.out.println("n*** Persistence started at " + new java.util.Date());
         }
     }
 

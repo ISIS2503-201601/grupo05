@@ -5,8 +5,6 @@ import dto.Reporte;
 import dto.Señal;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import javax.annotation.PostConstruct;
 
 import javax.ejb.EJB;
@@ -31,22 +29,16 @@ import logica.interfaces.IServicioReporteMockLocal;
 @Consumes(MediaType.APPLICATION_JSON)
 @Produces(MediaType.APPLICATION_JSON)
 public class ReporteService {
-
     
-    private static final Logger log= Logger.getLogger( ReporteService.class.getName() );
 //    @PersistenceContext(unitName = "mongoPU")
     EntityManager entityManager;
 
     @PostConstruct
     public void init() {
-        try 
-        {
+        try {
             entityManager = PersistenceManager.getInstance().getEntityManagerFactory().createEntityManager();
-        }
-        
-        catch (Exception e) 
-        {
-            log.log(Level.SEVERE, e.getMessage());
+        } catch (Exception e) {
+            e.printStackTrace();
         }
     }
  
@@ -87,10 +79,13 @@ public class ReporteService {
             receptorEjb.añadirSeñal(seña);
         }
         
+        System.err.println(señales.size());
+        
         Señal señal = receptorEjb.buscarUltimoRegistroSensorCercano(temp);
         
         temp.setSeñalCercana(señal);
         
+        //reporteEjb.recibirEventoSismico(temp);
         entityManager.getTransaction().begin();
         entityManager.persist(temp);
         entityManager.getTransaction().commit();

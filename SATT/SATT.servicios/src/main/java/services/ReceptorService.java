@@ -5,8 +5,6 @@ import dto.Reporte;
 import dto.Señal;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import javax.annotation.PostConstruct;
 
 import javax.ejb.EJB;
@@ -31,9 +29,7 @@ import logica.interfaces.IServicioReporteMockLocal;
 @Consumes(MediaType.APPLICATION_JSON)
 @Produces(MediaType.APPLICATION_JSON)
 public class ReceptorService {
-
-    private static final Logger log= Logger.getLogger( ReceptorService.class.getName() );
-    
+ 
     /**
      * Referencia al Ejb para el servicio reporte
      */
@@ -52,14 +48,10 @@ public class ReceptorService {
 
     @PostConstruct
     public void init() {
-        try 
-        {
+        try {
             entityManager = PersistenceManager.getInstance().getEntityManagerFactory().createEntityManager();
-        }
-        
-        catch (Exception e) 
-        {
-            log.log(Level.SEVERE, e.getMessage());
+        } catch (Exception e) {
+            e.printStackTrace();
         }
     }
    
@@ -70,9 +62,9 @@ public class ReceptorService {
      */
     @POST
     @Path("enviar/")
+ 
     public List<Señal> recibirSeñal(List<Señal> señalRecibida) 
     {   
-
         Query q = entityManager.createQuery("SELECT u FROM Señal u");
         List<Señal> señales = q.getResultList();
         for(Señal seña : señales)
@@ -98,9 +90,10 @@ public class ReceptorService {
                 List<EventoSismico> eventos = o.getResultList();
                 for(EventoSismico p : eventos)
                 {   
-                    if(p.getSeñalCercana() != null && p.getSeñalCercana().getId() == s.getId())
+                    if(p.getSeñalCercana() != null)
                     {
-                         
+                       if(p.getSeñalCercana().getId() == s.getId())
+                       {   
                         Query k = entityManager.createQuery("SELECT u FROM Reporte u ORDER BY u.id DESC");
                         List<Reporte> reportes = k.getResultList();
                         long contador = reportes.get(0).getId();
@@ -110,7 +103,7 @@ public class ReceptorService {
                         entityManager.persist(r);
                         entityManager.getTransaction().commit();
                         entityManager.refresh(r);
-                       
+                       } 
                     }
                     
                 }
@@ -131,6 +124,7 @@ public class ReceptorService {
     @Path("mostrar/")
     public Response darSeñalesHistoricas()
     {
+//        return receptorEjb.darSeñales();
         Query q = entityManager.createQuery("SELECT u FROM Señal u");
         List<Señal> señales = q.getResultList();
         return Response.status(200).header("Access-Control-Allow-Origin", "*").entity(señales).build();

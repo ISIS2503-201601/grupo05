@@ -6,7 +6,6 @@ import javax.ejb.Local;
 import dto.Reporte;
 import dto.EventoSismico;
 import dto.Señal;
-import java.util.List;
 
 /**
  * Mock que ayuda en la prueba del servicio reporte, el cual ofrece:
@@ -36,13 +35,13 @@ public interface IServicioReporteMockLocal
      * Retorna la información que se tiene guardada sobre eventos sismicos
      * anteriores.
      */
-    public List<EventoSismico> darEventosHistoricos();
+    public ArrayList<EventoSismico> darEventosHistoricos();
     
     /**
      * Retorna la información que se tiene guardada sobre reportes
      * anteriores.
      */
-    public List<Reporte> darReportesHistoricos();
+    public ArrayList<Reporte> darReportesHistoricos();
     
    
 

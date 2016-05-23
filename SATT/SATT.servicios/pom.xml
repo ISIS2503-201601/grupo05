@@ -34,12 +34,6 @@
             <version>1.13</version>
 </dependency>
         <dependency>
-            <groupId>javax.ws.rs</groupId>
-            <artifactId>javax.ws.rs-api</artifactId>
-            <version>2.0.1</version>
-            <type>jar</type>
-        </dependency>
-        <dependency>
             <groupId>javax</groupId>
             <artifactId>javaee-web-api</artifactId>
             <version>6.0</version>
@@ -74,8 +68,6 @@
             <version>1.2.3</version>
             <type>jar</type>
         </dependency> 
-        
-        
         
          <!--   Stormpath   -->
  
@@ -174,6 +166,20 @@
                                     <type>jar</type>
                                 </artifactItem>
                             </artifactItems>
+                        <connectors>
+    <connector implementation="org.eclipse.jetty.server.nio.SelectChannelConnector">
+        <forwarded>true</forwarded>
+        <port>8080</port>
+    </connector>
+    <connector implementation="org.eclipse.jetty.server.ssl.SslSelectChannelConnector">
+        <forwarded>true</forwarded>
+        <port>8443</port>
+        <maxIdleTime>60000</maxIdleTime>
+        <keystore>${project.build.directory}/ssl.keystore</keystore>
+        <password>appfuse</password>
+        <keyPassword>appfuse</keyPassword>
+    </connector>
+</connectors>
                         </configuration>
                     </execution>
                 </executions>

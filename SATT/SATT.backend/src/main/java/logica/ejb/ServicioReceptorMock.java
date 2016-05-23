@@ -31,7 +31,7 @@ public class ServicioReceptorMock implements IServicioReceptorMockLocal
      */
     public ServicioReceptorMock()
     {
-       listaSeñales = new ArrayList<>();
+       listaSeñales = new ArrayList<Señal>();
     }
 
     //-----------------------------------------------------------
@@ -42,13 +42,13 @@ public class ServicioReceptorMock implements IServicioReceptorMockLocal
     @Override
     public boolean recibirSeñal(Señal señalRecibida) 
     {   
-        boolean existe = false;
+        int contador = 0;
         
         for(int i = 0; i < listaSeñales.size(); i++)
         {
             if(señalRecibida.getId() == listaSeñales.get(i).getId() )
             {
-                existe = true;
+                contador++;
                 double varianza = (double) Math.abs(señalRecibida.getAlturaOlas() - listaSeñales.get(i).getAlturaOlas()) ;
                 if(varianza >= 1.5)
                 {
@@ -60,7 +60,7 @@ public class ServicioReceptorMock implements IServicioReceptorMockLocal
             }
         }
         
-        if(!existe)
+        if(contador == 0)
         {
             listaSeñales.add(señalRecibida);
             
@@ -70,7 +70,7 @@ public class ServicioReceptorMock implements IServicioReceptorMockLocal
     }
 
     @Override
-    public List<Señal> darSeñales() 
+    public ArrayList<Señal> darSeñales() 
     {
        return listaSeñales;
     }
@@ -87,17 +87,18 @@ public class ServicioReceptorMock implements IServicioReceptorMockLocal
     {
         double latitud = evento.getLatitud();
         double longitud = evento.getLongitud();
+        double distancia = evento.getDistancia();
         
         Señal cercano = listaSeñales.get(0);
-        double distanciaMin = Math.sqrt( Math.pow( latitud - cercano.getLatitud(), 2) + 
-                Math.pow( longitud - cercano.getLongitud(), 2 ) );
-        double d;
+        double distanciaMin = Math.sqrt( Math.pow( (latitud - cercano.getLatitud() ), 2) + 
+                Math.pow( (longitud - cercano.getLongitud()), 2 ) );
+        double d = 0;
         
         for(int i = 0; i < listaSeñales.size(); i++)
         {   
             Señal señalActual = listaSeñales.get(i);
-            d = Math.sqrt( Math.pow( latitud - señalActual.getLatitud() , 2) + 
-                Math.pow( longitud - señalActual.getLongitud(), 2 ) );
+            d = Math.sqrt( Math.pow( (latitud - señalActual.getLatitud() ), 2) + 
+                Math.pow( (longitud - señalActual.getLongitud()), 2 ) );
             
             if(d < distanciaMin)
             {

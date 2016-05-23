@@ -1,5 +1,0 @@
-projectKey=Grupo05:SATT
-serverUrl=http://localhost:9000
-dashboardUrl=http://localhost:9000/dashboard/index/Grupo05:SATT
-ceTaskId=AVTLWgrP8TdW81yn8C7t
-ceTaskUrl=http://localhost:9000/api/ce/task?id=AVTLWgrP8TdW81yn8C7t
