@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+
+<head>
+    <title>TODO supply a title</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+</head>
+
+<body>
+<div class="row featurette">
+    <div class="col-md-5">
+        <img src="images/bike.png" class="img-responsive" alt="600x600" data-holder-rendered="true" style="height: 100%; width: 100%; ">
+    </div>
+    <div class="col-md-7">
+        <h2><b>Sistema de préstamo de bicicletas Bike4Free</b></h2>
+        <form name="competitorForm" ng-submit="addReporte()" ng-controller="reporteCtrl" novalidate>
+            <h2 class="form-title">¡Registrate ya!</h2>
+            <div class="row">
+                <div class="col-md-8">
+                    <label>Nombre:</label>
+                    <input ng-model="reporte.id" type="text" class="form-control" required/>
+                </div>
+                <div class="col-md-8">
+                    <label>Correo Electrónico:</label>
+                    <input ng-model="reporte.latitud" type="text" class="form-control" required/>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-8">
+                    <label>Nombre de usuario:</label>
+                    <input ng-model="reporte.longitud" type="text" class="form-control" required/>
+                </div>
+                <div class="col-md-8">
+                    <label>Contraseña:</label>
+                    <input ng-model="reporte.distancia" type="text" class="form-control" required/>
+                </div>
+            </div>
+            <br>
+            <input type="submit" value="Registrarse" class="btn btn-default">
+        </form>
+    </div>
+</div>
+<hr>
+</body>

@@ -194,7 +194,15 @@
                 $scope.toolbar.selectTab(1);
             });
         };
-    }); 
+    });
+
+    SATT.directive('mainMenu', function(){
+        return{
+            restrict:'E',
+            templateUrl:'partials/main-menu.html',
+            controller: 'mainCtrl'
+        };
+    });
     
    
     
